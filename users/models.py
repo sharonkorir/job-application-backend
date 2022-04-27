@@ -42,6 +42,20 @@ class Employer(models.Model):
     name=models.CharField()
     company_pic=models.Cloudinary()
 
+class Post(models.Model):
+    id =  models.IntegerField(primary_key=True)
+    title=models.CharField()
+    description=models.CharField()
+    file=models.Cloudinary()
+
+class Comment(models.Model):
+    id =  models.IntegerField(primary_key=True)
+    userId=models.IntegerField()
+    content=models.CharField()
+    post=models.CharField()
+    like=models.IntegerField()
+    dislike=models.IntegerField()
+
 class Jobseeker(models.Model):
     jobid =  models.IntegerField(primary_key=True)
     name=models.CharField()
