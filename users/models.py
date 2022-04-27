@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 # Create your models here.
-
 class Jobseeker(models.Model):
     jobid =  models.IntegerField(primary_key=True)
     name=models.CharField()
@@ -27,6 +28,7 @@ class Jobseeker(models.Model):
 
 
 
+
 class Comment(models.Model):
     id =  models.IntegerField(primary_key=True)
     userId=models.IntegerField()
@@ -34,6 +36,15 @@ class Comment(models.Model):
     post=models.CharField()
     like=models.IntegerField()
     dislike=models.IntegerField()
+    created = models.DateTimeField(auto_now_add=True, null=True)
+
+    class Meta:
+        ordering = ["-created"]
+
+    def __str__(self):
+        return f'{self.user.name} post'
+
+
 
 class Post(models.Model):
     id =  models.IntegerField(Comment, primary_key=True)
