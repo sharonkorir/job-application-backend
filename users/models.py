@@ -3,58 +3,6 @@ from django.contrib.auth.models import AbstractUser
 
 
 # Create your models here.
-class User(AbstractUser):
-    username = models.CharField(max_length=100, unique=True)
-    password = models.CharField(max_length=255)
-    email = models.EmailField(max_length=100)
-    is_jobseeker = models.BooleanField(default=False)
-    is_employer = models.BooleanField(default=False)
-
-    REQUIRED = []
-
-    def __str__(self):
-        return f'{self.username}User'
-
-    def save_user(self):
-        super().save()
-
-    @classmethod
-    def get_user(cls):
-        user=User.objects.all()
-        return user
-
-    def delete_user(self):
-        self.delete()
-
-class Post(models.Model):
-    title = models.CharField(max_length=155)
-    description = models.TextField(max_length=255)
-    file= models.CharField( )
-    
-class Employer(models.Model):
-    id =  models.IntegerField(primary_key=True)
-    name=models.CharField()
-    email=models.CharField()
-    contact=models.IntegerField()
-    location= models.IntegerField(blank=True)
-    address=models.CharField()
-    company_bio=models.CharField()
-    name=models.CharField()
-    company_pic=models.Cloudinary()
-
-class Post(models.Model):
-    id =  models.IntegerField(primary_key=True)
-    title=models.CharField()
-    description=models.CharField()
-    file=models.Cloudinary()
-
-class Comment(models.Model):
-    id =  models.IntegerField(primary_key=True)
-    userId=models.IntegerField()
-    content=models.CharField()
-    post=models.CharField()
-    like=models.IntegerField()
-    dislike=models.IntegerField()
 
 class Jobseeker(models.Model):
     jobid =  models.IntegerField(primary_key=True)
@@ -76,6 +24,54 @@ class Jobseeker(models.Model):
     skills=models.CharField()
     reference=models.CharField()
 
+class Comment(models.Model):
+    id =  models.IntegerField(primary_key=True)
+    userId=models.IntegerField()
+    content=models.CharField()
+    post=models.CharField()
+    like=models.IntegerField()
+    dislike=models.IntegerField()
+
+class Post(models.Model):
+    id =  models.IntegerField(Comment, primary_key=True)
+    title=models.CharField()
+    description=models.CharField()
+    file=models.Cloudinary()
+
+class Employer(models.Model):
+    id =  models.IntegerField(Post, primary_key=True)
+    name=models.CharField()
+    email=models.CharField()
+    contact=models.IntegerField()
+    location= models.IntegerField(blank=True)
+    address=models.CharField()
+    company_bio=models.CharField()
+    name=models.CharField()
+    company_pic=models.Cloudinary()
+
+class User(AbstractUser):
+    username = models.CharField(max_length=100, unique=True)
+    password = models.CharField(max_length=255)
+    email = models.EmailField(max_length=100)
+    is_jobseeker = models.ForeignKey(Jobseeker, related_name='user')
+    is_employer = models.ForeignKey(Employer, related_name='user')
+
+    REQUIRED = []
+
+    def __str__(self):
+        return f'{self.username}User'
+
+    def save_user(self):
+        super().save()
+
+    @classmethod
+    def get_user(cls):
+        user=User.objects.all()
+        return user
+
+    def delete_user(self):
+        self.delete()
+
+
     
-    def save_user_move(sender, instance, **kwargs):
-        instance.move.save()  
+   
