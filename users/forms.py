@@ -10,7 +10,7 @@ class SignupForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('name', 'email', 'Phone no', 'Address','password','confirmpassword')
+        fields = ('username', 'email', 'password1', 'password2')
 
 class UpdateUserForm(forms.ModelForm):
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
@@ -25,7 +25,7 @@ class UpdateUserForm(forms.ModelForm):
 class UpdateUserProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        exclude = ['Full_name','Address','Email','Contact','Profile_image','Upload_Image']
+        exclude = ['Full_name','Email','Contact','Profile_image','Upload_Image']
         
 class PostForm(forms.ModelForm):
     class Meta:

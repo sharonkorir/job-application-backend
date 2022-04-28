@@ -12,9 +12,9 @@ class Profile(models.Model):
     id =  models.IntegerField(User, primary_key=True)
     Full_name=models.CharField(max_length=255)
     email=models.CharField(max_length=255)
-    contact=models.IntegerField()
+    contact=models.CharField(max_length=255)
     # Profile_image=models.Cloudinary()
-    address=models.CharField(max_length=255)
+    address=models.IntegerField()
     Upload_Cv=models.CharField(max_length=255)
     
 
@@ -33,7 +33,7 @@ class Jobseeker(models.Model):
     experience=models.CharField(max_length=255)
     Education_level=models.CharField(max_length=2, choices=EDUCATION_TYPE)
     job_category=models.CharField(max_length=255)
-    Phone_no=models.IntegerField()
+    Phone_no=models.CharField(max_length=255)
     salary_Expectation=models.IntegerField()
     status=models.IntegerField()
     # file=models.Cloudinary()
@@ -97,8 +97,8 @@ class Employer(models.Model):
 
 class User(AbstractUser):
     username = models.CharField(max_length=100, unique=True)
-    password = models.CharField(max_length=255)
     email = models.EmailField(max_length=100)
+    password = models.CharField(max_length=255)
     is_jobseeker = models.ForeignKey(Jobseeker, on_delete=models.CASCADE, related_name='user')
     is_employer = models.ForeignKey(Employer, on_delete=models.CASCADE, related_name='user')
 
