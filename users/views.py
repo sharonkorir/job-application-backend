@@ -55,4 +55,19 @@ def edit_profile(request, username):
         'user_form': user_form,
         'prof_form': prof_form
     }
-    return render(request, 'edit.html', params)
+    return render(request, '', params)
+
+def create_post(request, post_id):
+    post = Post.objects.get(id=post_id)
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.post = post
+            post.user = request.user.profile
+            post.save()
+            return redirect('', post.id)
+    else:
+        form = PostForm()
+    return render(request, '', {'form': form})
+    
