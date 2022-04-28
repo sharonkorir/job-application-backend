@@ -84,9 +84,6 @@ class Comment(models.Model):
         return f'{self.user.name} post'
 
 
-
-
-
 class Employer(models.Model):
     id =  models.IntegerField(Post, primary_key=True)
     name=models.CharField(max_length=255)
