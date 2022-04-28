@@ -13,7 +13,7 @@ class Profile(models.Model):
     Full_name=models.CharField(max_length=255)
     email=models.CharField(max_length=255)
     contact=models.IntegerField()
-    Profile_image=models.Cloudinary()
+    # Profile_image=models.Cloudinary()
     address=models.CharField(max_length=255)
     Upload_Cv=models.CharField(max_length=255)
     
@@ -36,8 +36,8 @@ class Jobseeker(models.Model):
     Phone_no=models.IntegerField()
     salary_Expectation=models.IntegerField()
     status=models.IntegerField()
-    file=models.Cloudinary()
-    profile_pic=models.Cloudinary()
+    # file=models.Cloudinary()
+    # profile_pic=models.Cloudinary()
     bio=models.CharField(max_length=255)
     work=models.CharField(max_length=255)
     Education=models.CharField(max_length=255)
@@ -50,7 +50,7 @@ class Post(models.Model):
     id =  models.IntegerField( primary_key=True)
     title=models.CharField(max_length=255)
     description=models.CharField(max_length=255)
-    file=models.Cloudinary()
+    # file=models.Cloudinary()
 
 def __str__(self):
         return f'{self.title}'
