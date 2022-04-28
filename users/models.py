@@ -3,15 +3,26 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+# from cloudinary.models import CloudinaryField
+
 
 
 # Create your models here.
+class Profile(models.Model):
+    id =  models.IntegerField(User, primary_key=True)
+    Full_name=models.CharField(max_length=255)
+    email=models.CharField(max_length=255)
+    contact=models.IntegerField()
+    Profile_image=models.Cloudinary()
+    address=models.CharField(max_length=255)
+    Upload_Cv=models.CharField(max_length=255)
+    
+
 class Jobseeker(models.Model):
     EDUCATION_TYPE = [
         ('C', 'Certificate'),
         ('D', 'Degree'),
         ('M', 'Masters'),
-        ('SD', 'Studio'),
     ]
 
     jobid =  models.IntegerField(primary_key=True)
@@ -22,11 +33,11 @@ class Jobseeker(models.Model):
     experience=models.CharField(max_length=255)
     Education_level=models.CharField(max_length=2, choices=EDUCATION_TYPE)
     job_category=models.CharField(max_length=255)
-    contact=models.IntegerField()
+    Phone_no=models.IntegerField()
     salary_Expectation=models.IntegerField()
     status=models.IntegerField()
-    # file=models.Cloudinary()
-    # profile_pic=models.Cloudinary()
+    file=models.Cloudinary()
+    profile_pic=models.Cloudinary()
     bio=models.CharField(max_length=255)
     work=models.CharField(max_length=255)
     Education=models.CharField(max_length=255)
@@ -39,7 +50,7 @@ class Post(models.Model):
     id =  models.IntegerField( primary_key=True)
     title=models.CharField(max_length=255)
     description=models.CharField(max_length=255)
-    # file=models.Cloudinary()
+    file=models.Cloudinary()
 
 def __str__(self):
         return f'{self.title}'

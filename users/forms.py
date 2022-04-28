@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import  Comment, Jobseeker, Employer,Post
+from .models import  Comment, Jobseeker, Employer,Post, Profile
 
 
 
@@ -12,7 +12,10 @@ class SignupForm(UserCreationForm):
         model = User
         fields = ('name', 'email', 'Phone no', 'Address','password','confirmpassword')
 
-
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        exclude = ['Full_name','Address','Email','Contact','Profile_image','Upload_Image']
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
