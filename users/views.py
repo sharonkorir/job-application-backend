@@ -20,14 +20,14 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('')
+            return redirect('login')
     else:
         form = SignupForm()
-    return render(request, '', {'form': form})
+    return render(request, 'register', {'form': form})
 
 @login_required(login_url='login')
 def profile(request, username):
-    return render(request, 'profile.html')
+    return render(request, 'profile')
 
 def user_profile(request, username):
     user_prof = get_object_or_404(User, username=username)
@@ -55,7 +55,7 @@ def edit_profile(request, username):
         'user_form': user_form,
         'prof_form': prof_form
     }
-    return render(request, '', params)
+    return render(request, 'profile', params)
 
 def create_post(request, post_id):
     post = Post.objects.get(id=post_id)
@@ -69,5 +69,4 @@ def create_post(request, post_id):
             return redirect('', post.id)
     else:
         form = PostForm()
-    return render(request, '', {'form': form})
-    
+    return render(request, 'post', {'form': form})
