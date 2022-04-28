@@ -45,7 +45,6 @@ def employerPayment(request):
                 "PartyA": request.POST.get('contact'),
                 "PartyB": LipaNaMpesaPassword().BusinessShortCode,
                 "PhoneNumber": request.POST.get('contact'),
-                # "CallBackURL": "https://mpesa-api-python.herokuapp.com/api/v1/mpesa/callback/",
                 "CallBackURL": "https://sandbox.safaricom.co.ke/mpesa/",
                 "AccountReference": "Jobslux",
                 "TransactionDesc": "Testing stk push",
