@@ -7,13 +7,20 @@ from django.dispatch import receiver
 
 # Create your models here.
 class Jobseeker(models.Model):
+    EDUCATION_TYPE = [
+        ('C', 'Certificate'),
+        ('D', 'Degree'),
+        ('M', 'Masters'),
+        ('SD', 'Studio'),
+    ]
+
     jobid =  models.IntegerField(primary_key=True)
     name=models.CharField(max_length=255)
     location= models.IntegerField(blank=True)
     professsion=models.CharField(max_length=255)
     jobtype=models.CharField(max_length=255)
     experience=models.CharField(max_length=255)
-    Education_level=models.CharField(max_length=255)
+    Education_level=models.CharField(max_length=2, choices=EDUCATION_TYPE)
     job_category=models.CharField(max_length=255)
     contact=models.IntegerField()
     salary_Expectation=models.IntegerField()
