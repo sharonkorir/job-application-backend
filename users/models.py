@@ -135,9 +135,9 @@ class User(AbstractUser):
 
 class Job(models.Model):
      JOB_TYPE = [
-        ('P', 'Part-Time'),
-        ('R', 'Remote'),
-        ('F', 'Full-Time'),
+        ('Part Time', 'Part-Time'),
+        ('Remote', 'Remote'),
+        ('Full Time', 'Full-Time'),
      ]
      title= models.CharField(max_length=30)
      location = models.CharField(max_length=255)

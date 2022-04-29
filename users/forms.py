@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import  Comment, Jobseeker, Employer,Post, Profile
+from .models import  Comment, Jobseeker, Employer,Post, Profile,Job
 
 
 class PaymentForm(forms.ModelForm):
@@ -46,9 +46,9 @@ class JobseekerForm(forms.ModelForm):
         model = Jobseeker
         exclude = ('user', 'bio','Education', 'Work_experience','skills','References','avalaibility','salary_expections','Job_category')
 
-class JobseekerForm(forms.ModelForm):
+class JobForm(forms.ModelForm):
     class Meta:
-        model = Jobseeker
+        model = Job
         exclude = ('id', 'Title','Requirements','Location', 'Job Type')
 
 class CommentForm(forms.ModelForm):

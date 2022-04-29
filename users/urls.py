@@ -12,7 +12,8 @@ from .views import  MpesaPaymentViewSet
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register('MpesaPayment', views.MpesaPaymentViewSet)
+# router.register('MpesaPayment', views.MpesaPaymentViewSet)
+router.register('Job', views.JobViewSet)
 # router.register('posts', views.PostViewSet)
 # router.register('profile', views.ProfileViewSet)
 
@@ -22,7 +23,7 @@ urlpatterns = [
      path('', include(router.urls)),
      path('api/', include(router.urls)),
      path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    # path('register/', views.signup, name='signup'),
+    path('job/', views.Job, name='Job'),
     # path('account/', include('django.contrib.auth.urls')),
     # path('profile/<username>', views.profile, name='profile'),
     # path('profile/<username>/edit/', views.edit_profile, name='edit-profile'),
