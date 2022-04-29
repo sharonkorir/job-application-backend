@@ -9,4 +9,4 @@ from django.contrib.auth.models import User
 class MpesaPaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = MpesaPayment
-        fields = ['id', 'Name', 'Number']
+        fields = ['id', 'amount', 'contact']

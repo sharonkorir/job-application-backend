@@ -9,7 +9,7 @@ from django.dispatch import receiver
 
 # Create your models here.
 class MpesaPayment(models.Model):
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=False,)
     description = models.TextField()
     type = models.TextField()
     first_name = models.CharField(max_length=100)
@@ -22,7 +22,7 @@ class MpesaPayment(models.Model):
 
     def __str__(self):
         return self.first_name
-        
+
 class Profile(models.Model):
     id =  models.IntegerField(User, primary_key=True)
     Full_name=models.CharField(max_length=255)

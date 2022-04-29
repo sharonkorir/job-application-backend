@@ -5,7 +5,8 @@ from .models import  Comment, Jobseeker, Employer,Post, Profile
 
 
 class PaymentForm(forms.ModelForm):
-    id = forms.CharField()
+    id = forms.IntegerField()
+    name = forms.CharField()
     phone_number= forms.IntegerField(required=True)
 
 class SignupForm(UserCreationForm):
