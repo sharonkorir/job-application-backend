@@ -133,6 +133,24 @@ class User(AbstractUser):
     def delete_user(self):
         self.delete()
 
+class Job(models.Model):
+     JOB_TYPE = [
+        ('P', 'Part-Time'),
+        ('R', 'Remote'),
+        ('F', 'Full-Time'),
+     ]
+     title= models.CharField(max_length=30)
+     location = models.CharField(max_length=255)
+     requirements = models.TextField()
+     jobtype= models.TextField(max_length=30, choices=JOB_TYPE)
 
+     def save_job(self):
+        self.save()
+
+     def delete_job(self):
+        self.delete()
+
+     def __str__(self):
+        return self.title
     
    
