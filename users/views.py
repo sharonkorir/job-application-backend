@@ -16,7 +16,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import login_required
-import os
+
 from .forms import PaymentForm
 import time
 from .serializers import MpesaPaymentSerializer,JobSerializer
@@ -35,7 +35,7 @@ class MpesaPaymentViewSet(viewsets.ModelViewSet):
 class JobViewSet(viewsets.ModelViewSet):  
       serializer_class = JobSerializer
       queryset = Job.objects.all()
-      
+
 
 def signup(request):
     if request.method == 'POST':
