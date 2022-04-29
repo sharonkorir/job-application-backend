@@ -19,12 +19,19 @@ from django.contrib.auth.decorators import login_required
 import os
 from .forms import PaymentForm
 import time
+from .serializers import MpesaPaymentSerializer
 from .models import *
 from decouple import config
 import json
 import requests
+from rest_framework import viewsets
+
 
 # Create your views here.
+class MpesaPaymentViewSet(viewsets.ModelViewSet):  
+      serializer_class = MpesaPaymentSerializer
+      queryset = MpesaPayment.objects.all()
+
 
 def signup(request):
     if request.method == 'POST':
