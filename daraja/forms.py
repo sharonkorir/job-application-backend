@@ -5,6 +5,11 @@ from django import forms
 from django.db import transaction
 from .models import *
 
+class PaymentForm(forms.ModelForm):
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
+    email = forms.CharField(required=True)
+
 class EmployerSignUp(UserCreationForm):
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)

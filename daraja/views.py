@@ -1,26 +1,20 @@
 
 
 import json
-from urllib.request import HTTPBasicAuthHandler
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 import os
+from .forms import PaymentForm
 import time
-from django.http.response import Http404
-from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
-from django.core.exceptions import ObjectDoesNotExist
 from .models import *
-from os import access
-from decouple import config, Csv
-from django.views.decorators.csrf import csrf_exempt
+from decouple import config
 import json
 import requests
 
-from .mpesa_credentials import MpesaAccessToken, LipaNaMpesaPassword
+from ..users.mpesa_credentials import MpesaAccessToken, LipaNaMpesaPassword
 from .models import MpesaPayment
 
 @login_required
@@ -53,8 +47,6 @@ def employerPayment(request):
                 stk_push_api_url, json=request, headers=headers)
 
             mpesa_form.save()
-            # messages.success(
-            # request, 'Your Payment has been made successfully')
             user = User.objects.get(id=current_user.id)
             user.is_verified = True
             user.save()

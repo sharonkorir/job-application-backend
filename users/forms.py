@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from .models import  Comment, Jobseeker, Employer,Post, Profile
 
 
+class PaymentForm(forms.ModelForm):
+    id = forms.CharField()
+    phone_number= forms.IntegerField(required=True)
 
 class SignupForm(UserCreationForm):
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
