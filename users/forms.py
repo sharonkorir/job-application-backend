@@ -46,6 +46,11 @@ class JobseekerForm(forms.ModelForm):
         model = Jobseeker
         exclude = ('user', 'bio','Education', 'Work_experience','skills','References','avalaibility','salary_expections','Job_category')
 
+class JobseekerForm(forms.ModelForm):
+    class Meta:
+        model = Jobseeker
+        exclude = ('id', 'Title','Requirements','Location', 'Job Type')
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
