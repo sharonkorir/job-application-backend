@@ -8,7 +8,7 @@ from django.conf.urls.static import static
 from users.models import MpesaPayment
 from . import views
 from rest_framework.routers import DefaultRouter
-from .views import  MpesaPaymentViewSet
+from .views import  MpesaPaymentViewSet, activate
 from rest_framework import routers
 
 router = routers.DefaultRouter()
@@ -21,6 +21,8 @@ urlpatterns = [
      path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
      path('MpesaPayment/', views.Job, name='MpesaPayment'),
     path('job/', views.Job, name='Job'),
+     path('activate/(<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/',  
+        activate, name='activate'),  
    
 ]
 if settings.DEBUG:
