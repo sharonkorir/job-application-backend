@@ -29,7 +29,7 @@ class Profile(models.Model):
     Full_name=models.CharField(max_length=255)
     email=models.CharField(max_length=255)
     contact=models.CharField(max_length=255)
-    Profile_image=CloudinaryField()
+    Profile_image=CloudinaryField('image', null=True, blank=True)
     address=models.IntegerField()
     Upload_Cv=models.CharField(max_length=255)
     
@@ -52,8 +52,8 @@ class Jobseeker(models.Model):
     Phone_no=models.CharField(max_length=255)
     salary_Expectation=models.IntegerField()
     status=models.IntegerField()
-    file=CloudinaryField()
-    profile_pic=CloudinaryField()
+    # file=models.FileField(null=False, blank=False)
+    profile_pic=CloudinaryField('image', null=True, blank=True)
     bio=models.CharField(max_length=255)
     work=models.CharField(max_length=255)
     Education=models.CharField(max_length=255)
@@ -66,7 +66,7 @@ class Post(models.Model):
     id =  models.IntegerField( primary_key=True)
     title=models.CharField(max_length=255)
     description=models.CharField(max_length=255)
-    file=models.FileField()
+    # file=models.FileField()
 
 def __str__(self):
         return f'{self.title}'
@@ -109,7 +109,8 @@ class Employer(models.Model):
     address=models.CharField(max_length=255)
     company_bio=models.CharField(max_length=255)
     name=models.CharField(max_length=255)
-    company_pic=CloudinaryField()
+    company_pic=CloudinaryField('image', null=True, blank=True)
+
 
 class User(AbstractUser):
     username = models.CharField(max_length=100, unique=True)
