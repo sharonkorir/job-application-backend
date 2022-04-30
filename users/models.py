@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-# from cloudinary.models import CloudinaryField
+from cloudinary.models import CloudinaryField
+
 
 
 
@@ -28,7 +29,7 @@ class Profile(models.Model):
     Full_name=models.CharField(max_length=255)
     email=models.CharField(max_length=255)
     contact=models.CharField(max_length=255)
-    # Profile_image=models.Cloudinary()
+    Profile_image=CloudinaryField()
     address=models.IntegerField()
     Upload_Cv=models.CharField(max_length=255)
     
@@ -51,8 +52,8 @@ class Jobseeker(models.Model):
     Phone_no=models.CharField(max_length=255)
     salary_Expectation=models.IntegerField()
     status=models.IntegerField()
-    # file=models.Cloudinary()
-    # profile_pic=models.Cloudinary()
+    file=CloudinaryField()
+    profile_pic=CloudinaryField()
     bio=models.CharField(max_length=255)
     work=models.CharField(max_length=255)
     Education=models.CharField(max_length=255)
@@ -65,7 +66,7 @@ class Post(models.Model):
     id =  models.IntegerField( primary_key=True)
     title=models.CharField(max_length=255)
     description=models.CharField(max_length=255)
-    # file=models.Cloudinary()
+    file=models.FileField()
 
 def __str__(self):
         return f'{self.title}'
@@ -108,7 +109,7 @@ class Employer(models.Model):
     address=models.CharField(max_length=255)
     company_bio=models.CharField(max_length=255)
     name=models.CharField(max_length=255)
-    # company_pic=models.Cloudinary()
+    company_pic=CloudinaryField()
 
 class User(AbstractUser):
     username = models.CharField(max_length=100, unique=True)

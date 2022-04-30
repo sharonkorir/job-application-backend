@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import environ
 import os
+import cloudinary.api
+import os
+from decouple import config,Csv
+import cloudinary.uploader
+import cloudinary
 
 env = environ.Env(DEBUG=(bool, False))
 # reading .env file
@@ -135,4 +140,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'daraja.User'
 AUTH_USER_MODEL = 'users.User'
 
-
+cloudinary.config( 
+  cloud_name = "moiws", 
+  api_key = "656941885515644", 
+  api_secret = "YY5igLwW3kkB7lh8-1_TWtUdwlo" 
+)
