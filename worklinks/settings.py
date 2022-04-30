@@ -18,6 +18,8 @@ import os
 from decouple import config,Csv
 import cloudinary.uploader
 import cloudinary
+from django.conf import settings
+
 
 env = environ.Env(DEBUG=(bool, False))
 # reading .env file
@@ -139,6 +141,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'daraja.User'
 AUTH_USER_MODEL = 'users.User'
+User = settings.AUTH_USER_MODEL
 
 cloudinary.config( 
   cloud_name = "moiws", 

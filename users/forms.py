@@ -1,7 +1,8 @@
+from xml.etree.ElementInclude import include
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import  Comment, Jobseeker, Employer,Post, Profile,Job
+from .models import  Comment, Employer,Post, Profile,Job, Jobseeker
 
 
 class PaymentForm(forms.ModelForm):
@@ -26,27 +27,42 @@ class UpdateUserForm(forms.ModelForm):
         fields = ('username', 'email')
 
 
-
-
 class UpdateUserProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        exclude = ['Full_name','Email','Contact','Profile_image','Upload_Image']
+        fields = ['Full_name','Profile_image']
         
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        exclude = ['user']
+        fields = ['title']
 
 class EmployeeForm(forms.ModelForm):
     class Meta:
         model = Employer
-        exclude = ['user']
+        fields = ['name']
 
 class JobseekerForm(forms.ModelForm):
-    class Meta:
-        model = Jobseeker
-        exclude = ('user', 'bio','Education', 'Work_experience','skills','References','avalaibility','salary_expections','Job_category')
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
+    email = forms.CharField(required=True)
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = ['username',  'email', 'password']
+
+    
+    def save(self):
+        user = super().save(commit=False)
+        user.is_jobseeker = True
+        user.first_name = self.cleaned_data.get('first_name')
+        user.last_name = self.cleaned_data.get('last_name')
+        user.save()
+        jobseeker = Jobseeker.objects.create(user=user)
+        jobseeker.email = self.cleaned_data.get('email')
+        jobseeker.save()
+
+        return jobseeker
 
 class JobForm(forms.ModelForm):
     class Meta:

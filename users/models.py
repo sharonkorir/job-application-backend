@@ -10,7 +10,7 @@ from cloudinary.models import CloudinaryField
 
 # Create your models here.
 class MpesaPayment(models.Model):
-    amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=False,)
+    amount = models.DecimalField(max_digits=10, blank=False, decimal_places=2)
     description = models.TextField()
     type = models.TextField()
     first_name = models.CharField(max_length=100)
@@ -29,36 +29,69 @@ class Profile(models.Model):
     Full_name=models.CharField(max_length=255)
     email=models.CharField(max_length=255)
     contact=models.CharField(max_length=255)
-    Profile_image=CloudinaryField('image', null=True, blank=True)
+    Profile_image=CloudinaryField('image')
     address=models.IntegerField()
     Upload_Cv=models.CharField(max_length=255)
     
+class User(AbstractUser):
+    USERNAME_FIELD = 'username'
+    is_admin = models.BooleanField(default=False)
+    is_employer = models.BooleanField(default=False)
+    is_jobseeker = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+
+    def save_user(self):
+        self.save()
+
+    def update_user(self):
+        self.update()
+
+    def delete_user(self):
+        self.delete()
+
+class Employer(models.Model):
+    user=  models.OneToOneField(User, blank=True, on_delete=models.CASCADE, primary_key=True)
+    name=models.CharField(max_length=255)
+    email=models.CharField(max_length=255)
+    contact=models.IntegerField()
+    location= models.IntegerField(blank=True)
+    address=models.CharField(max_length=255)
+    company_bio=models.CharField(max_length=255)
+    name=models.CharField(max_length=255)
+    company_pic=CloudinaryField('image' )
 
 class Jobseeker(models.Model):
-    EDUCATION_TYPE = [
-        ('C', 'Certificate'),
-        ('D', 'Degree'),
-        ('M', 'Masters'),
-    ]
+    user = models.OneToOneField(Employer, on_delete=models.CASCADE, primary_key=True)
+    profile_photo = CloudinaryField('image',  blank=True)
+    bio = models.TextField( blank=True)
+    location = models.CharField(max_length=100,  blank=True)
+    contact = models.CharField( max_length=30,  blank=True)
+    availability = models.CharField( blank=True,  max_length=20)
+    salary = models.IntegerField( )
+    name = models.IntegerField( blank=False )
+    phone_no= models.CharField(max_length=50 , blank=False)
+    email = models.CharField(max_length=50 , blank=True )
+    password= models.CharField(max_length=50, blank=False)
+    
 
-    jobid =  models.IntegerField(primary_key=True)
-    name=models.CharField(max_length=255)
-    location= models.IntegerField(blank=True)
-    professsion=models.CharField(max_length=255)
-    jobtype=models.CharField(max_length=255)
-    experience=models.CharField(max_length=255)
-    Education_level=models.CharField(max_length=2, choices=EDUCATION_TYPE)
-    job_category=models.CharField(max_length=255)
-    Phone_no=models.CharField(max_length=255)
-    salary_Expectation=models.IntegerField()
-    status=models.IntegerField()
-    # file=models.FileField(null=False, blank=False)
-    profile_pic=CloudinaryField('image', null=True, blank=True)
-    bio=models.CharField(max_length=255)
-    work=models.CharField(max_length=255)
-    Education=models.CharField(max_length=255)
-    skills=models.CharField(max_length=255)
-    reference=models.CharField(max_length=255)
+    def save_jobseeker(self):
+        self.save()
+
+    def delete_jobseeker(self):
+        self.delete()
+
+    @classmethod
+    def update_jobseeker(self):
+        self.update()
+
+    @classmethod
+    def search_jobseekers_by_job_category(cls, job_category):
+        jobseekers = Jobseeker.objects.filter(
+            job_category__icontains=job_category)
+        return jobseekers
+
 
 
 
@@ -99,38 +132,6 @@ class Comment(models.Model):
     def __str__(self):
         return f'{self.user.name} post'
 
-
-class Employer(models.Model):
-    id =  models.IntegerField(Post, primary_key=True)
-    name=models.CharField(max_length=255)
-    email=models.CharField(max_length=255)
-    contact=models.IntegerField()
-    location= models.IntegerField(blank=True)
-    address=models.CharField(max_length=255)
-    company_bio=models.CharField(max_length=255)
-    name=models.CharField(max_length=255)
-    company_pic=CloudinaryField('image', null=True, blank=True)
-
-
-class User(AbstractUser):
-    username = models.CharField(max_length=100, unique=True)
-    email = models.EmailField(max_length=100)
-    password = models.CharField(max_length=255)
-    is_jobseeker = models.ForeignKey(Jobseeker, on_delete=models.CASCADE, related_name='user')
-    is_employer = models.ForeignKey(Employer, on_delete=models.CASCADE, related_name='user')
-
-    REQUIRED = []
-
-    def __str__(self):
-        return f'{self.username}User'
-
-    def save_user(self):
-        super().save()
-
-    @classmethod
-    def get_user(cls):
-        user=User.objects.all()
-        return user
 
     def delete_user(self):
         self.delete()
