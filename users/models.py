@@ -51,6 +51,7 @@ class User(AbstractUser):
     def delete_user(self):
         self.delete()
 
+
 class Employer(models.Model):
     user=  models.OneToOneField(User, blank=True, on_delete=models.CASCADE, primary_key=True)
     name=models.CharField(max_length=255)
