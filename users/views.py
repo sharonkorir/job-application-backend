@@ -23,7 +23,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import login_required
 from .forms import PaymentForm
 import time
-from .serializers import MpesaPaymentSerializer,JobSerializer
+from .serializers import MpesaPaymentSerializer,JobSerializer, SignUpSerializer
 from .models import *
 from decouple import config
 import json
@@ -36,7 +36,8 @@ from django.template.loader import render_to_string
 from .token import account_activation_token  
 from django.contrib.auth.models import User  
 from django.core.mail import EmailMessage  
-
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 # Create your views here.
 class MpesaPaymentViewSet(viewsets.ModelViewSet):  
@@ -47,20 +48,11 @@ class JobViewSet(viewsets.ModelViewSet):
       serializer_class = JobSerializer
       queryset = Job.objects.all()
 
+class SignUpViewSet(viewsets.ModelViewSet):  
+      serializer_class = SignUpSerializer
+      queryset = User.objects.all()
 
-# def signup(request):
-#     if request.method == 'POST':
-#         form = SignupForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get('username')
-#             raw_password = form.cleaned_data.get('password1')
-#             user = authenticate(username=username, password=raw_password)
-#             login(request, user)
-#             return redirect('login')
-#     else:
-#         form = SignupForm()
-#     return render(request, 'register', {'form': form})
+
 
 def signup(request):  
     if request.method == 'POST':  

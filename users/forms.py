@@ -13,11 +13,14 @@ class PaymentForm(forms.ModelForm):
 
 
 class SignupForm(UserCreationForm):
-    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+    email = forms.EmailField()
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
+    email = forms.CharField(max_length=254, help_text='Required. Inform a valid email address.')
 
-    class Meta:
+    class Meta(UserCreationForm.Meta):
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
 
 class UpdateUserForm(forms.ModelForm):
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
