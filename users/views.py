@@ -98,9 +98,23 @@ def activate(request, uidb64, token):
         return HttpResponse('Activation link is invalid!')  
 
 
-@login_required(login_url='login')
-def profile(request, username):
-    return render(request, 'profile')
+# @login_required(login_url='login')
+# def profile(request, username):
+#     return render(request, 'profile')
+@login_required
+def profile(request):
+
+    if request.method == 'POST':
+        form = UpdateUserProfileForm(request.POST)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = request.user
+            profile.save()
+            return redirect('dashboard')
+    else:
+        form = UpdateUserProfileForm()
+
+    return render(request, '', {'form':form})
 
 def user_profile(request, username):
     user_prof = get_object_or_404(User, username=username)

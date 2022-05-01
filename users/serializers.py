@@ -21,7 +21,7 @@ class JobSerializer(serializers.ModelSerializer):
 class UpdateUserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['Full_name','Profile_image']
+        fields = ['Full_name','Profile_image','address']
 
 class SignUpSerializer(serializers.ModelSerializer):
 
