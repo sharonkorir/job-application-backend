@@ -23,7 +23,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import login_required
 from .forms import PaymentForm
 import time
-from .serializers import MpesaPaymentSerializer,JobSerializer, SignUpSerializer
+from .serializers import MpesaPaymentSerializer,JobSerializer, SignUpSerializer,UpdateUserProfileSerializer
 from .models import *
 from decouple import config
 import json
@@ -52,7 +52,9 @@ class SignUpViewSet(viewsets.ModelViewSet):
       serializer_class = SignUpSerializer
       queryset = User.objects.all()
 
-
+class UpdateUserProfileViewSet(viewsets.ModelViewSet):  
+      serializer_class = UpdateUserProfileSerializer
+      queryset = Profile.objects.all()
 
 def signup(request):  
     if request.method == 'POST':  

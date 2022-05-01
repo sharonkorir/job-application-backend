@@ -1,7 +1,7 @@
 
 
 from rest_framework import serializers
-from .models import MpesaPayment,Job
+from .models import MpesaPayment,Job,Profile
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 
@@ -16,6 +16,12 @@ class JobSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
         fields = ['id', 'title','requirements','location', 'jobtype']
+
+
+class UpdateUserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['Full_name','Profile_image']
 
 class SignUpSerializer(serializers.ModelSerializer):
 
