@@ -1,6 +1,3 @@
-
-
-
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
@@ -19,10 +16,10 @@ router.register('UpdateUserProfile', views. UpdateUserProfileViewSet)
 
 
 urlpatterns = [
-     path('', include(router.urls)),
-     path('api/', include(router.urls)),
-     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-     path('MpesaPayment/', views.MpesaPayment, name='MpesaPayment'),
+    path('', include(router.urls)),
+    path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('MpesaPayment/', views.MpesaPayment, name='MpesaPayment'),
     path('job/', views.Job, name='Job'),
     path('user/', views.User, name='User'),
     path('profile/', views.Profile, name='UpdateUserProfile'),
