@@ -12,6 +12,17 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+import environ
+import cloudinary.api
+from decouple import config,Csv
+import cloudinary.uploader
+import cloudinary
+from django.conf import settings
+
+
+env = environ.Env(DEBUG=(bool, False))
+# reading .env file
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -50,6 +61,9 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'rest_framework',
+    'users',
+    
 ]
 
 
@@ -106,6 +120,9 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',)
+# }
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
@@ -124,6 +141,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#Email notification
+EMAIL_USE_TLS = True  
+EMAIL_HOST = 'smtp.gmail.com'  
+EMAIL_HOST_USER = 'moishadrack@gmail.com'  
+EMAIL_HOST_PASSWORD = 'MkelorD12'  
+EMAIL_PORT = 587  
 
 
 
@@ -166,3 +189,12 @@ REST_FRAMEWORK = {
 
 AUTH_USER_MODEL = 'user.User'
 ACCOUNT_UNIQUE_EMAIL = True
+AUTH_USER_MODEL = 'daraja.User'
+AUTH_USER_MODEL = 'users.User'
+User = settings.AUTH_USER_MODEL
+
+cloudinary.config( 
+  cloud_name = "moiws", 
+  api_key = "656941885515644", 
+  api_secret = "YY5igLwW3kkB7lh8-1_TWtUdwlo" 
+)
