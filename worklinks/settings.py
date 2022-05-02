@@ -11,9 +11,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-import os
 import environ
+import os
 import cloudinary.api
+import os
 from decouple import config,Csv
 import cloudinary.uploader
 import cloudinary
@@ -49,25 +50,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'user',
-    'bootstrap4',
-    'cloudinary',
-    'rest_framework',
-    'rest_framework.authtoken',
-    'rest_auth',
-    'allauth',
-    'allauth.account',
-    'rest_auth.registration',
-    'django.contrib.sites',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
     'rest_framework',
     'users',
     
 ]
-
-
-SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -92,8 +78,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.request',
-
             ],
         },
     },
@@ -107,18 +91,10 @@ WSGI_APPLICATION = 'worklinks.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'worklinksbackend',
-        'USERNAME': 'sharon',
-        'PASSWORD': '12345678',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-AUTHENTICATION_BACKENDS = [
-
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
 
 # REST_FRAMEWORK = {
 #     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',)
@@ -148,8 +124,6 @@ EMAIL_HOST_USER = 'moishadrack@gmail.com'
 EMAIL_HOST_PASSWORD = 'MkelorD12'  
 EMAIL_PORT = 587  
 
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -167,28 +141,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'static'),
-)
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ]
-}
-
-
-
-AUTH_USER_MODEL = 'user.User'
-ACCOUNT_UNIQUE_EMAIL = True
 AUTH_USER_MODEL = 'daraja.User'
 AUTH_USER_MODEL = 'users.User'
 User = settings.AUTH_USER_MODEL
