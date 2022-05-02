@@ -95,8 +95,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'worklinksbackend',
-        'USERNAME': 'moringa',
-        'PASSWORD': 'user',
+        'USERNAME': 'sharon',
+        'PASSWORD': '12345678',
     }
 }
 
