@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from cloudinary.models import CloudinaryField
-
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 
@@ -23,15 +23,22 @@ class MpesaPayment(models.Model):
 
     def __str__(self):
         return self.first_name
+ 
+ 
+
 
 class Profile(models.Model):
     id =  models.IntegerField(User, primary_key=True)
-    Full_name=models.CharField(max_length=255)
+    full_name=models.CharField(max_length=255)
+    contact=PhoneNumberField(null=False, blank=False, unique=True)
     email=models.CharField(max_length=255)
-    contact=models.CharField(max_length=255)
-    Profile_image=CloudinaryField('image')
-    address=models.IntegerField()
-    Upload_Cv=models.CharField(max_length=255)
+    bio=models.CharField(max_length=255)
+    work_experience=models.CharField(max_length=255 ,blank=True)
+    profile_image=CloudinaryField('image')
+    address=models.CharField(max_length=100)
+    resume=models.FileField(blank=True)
+    skills=models.CharField(max_length=255 , blank=True)
+    referees=models.CharField(max_length=255 , blank=True)
     
 class User(AbstractUser):
     USERNAME_FIELD = 'username'
@@ -100,7 +107,7 @@ class Post(models.Model):
     id =  models.IntegerField( primary_key=True)
     title=models.CharField(max_length=255)
     description=models.CharField(max_length=255)
-    # file=models.FileField()
+    file=models.FileField()
 
 def __str__(self):
         return f'{self.title}'
