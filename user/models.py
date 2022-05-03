@@ -6,17 +6,18 @@ from django.contrib.auth.models import AbstractUser
 from rest_framework.authtoken.models import Token
 from worklinks.settings import AUTH_USER_MODEL
 from cloudinary.models import CloudinaryField
+from users.models import User
 
 # Create your models here.
 
 
-class User(AbstractUser):
-    is_jobseeker = models.BooleanField(default=False)
-    is_employer = models.BooleanField(default=False)
-    is_admin = models.BooleanField(default=False)
+# class User(AbstractUser):
+#     is_jobseeker = models.BooleanField(default=False)
+#     is_employer = models.BooleanField(default=False)
+#     is_admin = models.BooleanField(default=False)
 
-    def __str__(self):
-        return self.username
+#     def __str__(self):
+#         return self.username
 
 
 @receiver(post_save, sender=AUTH_USER_MODEL)
@@ -36,15 +37,26 @@ class Jobseeker(models.Model):
         return self.jobseeker_name
 
 
+# class Employer(models.Model):
+#     user = models.OneToOneField(User, related_name='employer', on_delete=models.CASCADE)
+#     company_name = models.CharField(max_length=255, blank=True)
+#     email = models.CharField(max_length=255, blank=True)
+#     company_contact = models.CharField(max_length=255, blank=True)
+#     company_location = models.CharField(max_length=255, blank=True)
+#     company_bio = models.TextField(max_length=500, blank=True)
+#     address = models.CharField(max_length=255, blank=True)
+#     company_profile = CloudinaryField('image', null=True)
+
 class Employer(models.Model):
-    user = models.OneToOneField(User, related_name='employer', on_delete=models.CASCADE)
-    company_name = models.CharField(max_length=255, blank=True)
-    email = models.CharField(max_length=255, blank=True)
-    company_contact = models.CharField(max_length=255, blank=True)
-    company_location = models.CharField(max_length=255, blank=True)
-    company_bio = models.TextField(max_length=500, blank=True)
-    address = models.CharField(max_length=255, blank=True)
-    company_profile = CloudinaryField('image', null=True)
+    user=  models.OneToOneField(User, blank=True, on_delete=models.CASCADE, primary_key=True, related_name='user_employer')
+    name=models.CharField(max_length=255)
+    email=models.CharField(max_length=255)
+    contact=models.IntegerField()
+    location= models.IntegerField(blank=True)
+    address=models.CharField(max_length=255)
+    company_bio=models.CharField(max_length=255)
+    name=models.CharField(max_length=255)
+    company_pic=CloudinaryField('image' )
     
 
     def save_employer(self):
