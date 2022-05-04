@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'mpesa_api',
     
 ]
 
