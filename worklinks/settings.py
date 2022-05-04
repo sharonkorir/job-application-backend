@@ -17,6 +17,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'user',
+    'phonenumbers',
     'bootstrap4',
     'cloudinary',
     'rest_framework',
@@ -94,7 +96,7 @@ WSGI_APPLICATION = 'worklinks.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'worklinksbackend',
+        'NAME': 'merged',
         'USERNAME': 'moringa',
         'PASSWORD': 'user',
     }
@@ -136,7 +138,6 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
