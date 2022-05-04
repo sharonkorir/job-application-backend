@@ -28,6 +28,7 @@ environ.Env.read_env()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -51,8 +52,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'phonenumbers',
     'rest_framework',
-    'users',
     'user',
+    'bootstrap4',
     'cloudinary',
     'rest_framework.authtoken',
     'rest_auth',
@@ -62,6 +63,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'mpesa_api',
     
 ]
 
@@ -107,6 +109,9 @@ DATABASES = {
         'NAME': 'worklinksbackend',
         'USER': 'sharon',
         'PASSWORD': '12345678',
+        # 'NAME': 'merged',
+        # 'USERNAME': 'moringa',
+        # 'PASSWORD': 'user',
     }
 }
 
@@ -153,7 +158,6 @@ TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 
-USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
@@ -176,9 +180,8 @@ REST_FRAMEWORK = {
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-# AUTH_USER_MODEL = 'daraja.User'
-AUTH_USER_MODEL = 'users.User'
-# AUTH_USER_MODEL = 'user.User'
+
+AUTH_USER_MODEL = 'user.User'
 
 User = settings.AUTH_USER_MODEL
 
