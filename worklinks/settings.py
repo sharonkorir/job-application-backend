@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'phonenumbers',
     'rest_framework',
+     "corsheaders",
     'users',
     'drf_yasg',
     'django.contrib.staticfiles',
@@ -63,6 +64,8 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+     "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -88,7 +91,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'worklinks.wsgi.application'
 
+CORS_ALLOWED_ORIGINS = [
 
+    "http://127.0.0.1:8000",
+]
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+# CORS_ALLOWED_ORIGIN_REGEXES: Sequence[str | Pattern[str]]
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
