@@ -51,8 +51,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'phonenumbers',
     'rest_framework',
-    'users',
     'user',
+    'users',
     'cloudinary',
     'rest_framework.authtoken',
     'rest_auth',
@@ -103,10 +103,13 @@ WSGI_APPLICATION = 'worklinks.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'worklinksbackend',
-        'USER': 'sharon',
-        'PASSWORD': '12345678',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+         'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'work',
+        'USER': 'moringa',
+        'PASSWORD': '12access',
+        
     }
 }
 
