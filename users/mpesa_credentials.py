@@ -14,7 +14,7 @@ class MpesaAccessToken:
     api_url = config("GET_ACCESS_TOKEN_URL")
 
     the_request = requests.get(
-        api_url, auth=HTTPBasicAuth(consumer_key, consumer_secret)
+        api_url, auth=HTTPBasicAuth(consumer_key, consumer_secret )
     )
     mpesa_access_token = json.loads(the_request.text)
     validated_mpesa_access_token = mpesa_access_token["access_token"]
