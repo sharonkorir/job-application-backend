@@ -1,4 +1,4 @@
-#!/home/sharon/Documents/Group-project/worklinks/backend/virtual/bin/python3.8
+#!/home/moringa/Documents/worklinks-backend/virtual/bin/python3
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 
