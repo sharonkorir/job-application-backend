@@ -16,13 +16,18 @@ class JobSerializer(serializers.ModelSerializer):
         fields = ['id', 'title','requirements','location', 'jobtype']
 
 
-class UpdateUserProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = ['full_name','profile_image','contact','email','bio','resume','skills','work_experience','address','referees']
+# class UpdateUserProfileSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Profile
+#         fields = ['full_name','profile_image','contact','email','bio','resume','skills','work_experience','address','referees']
 
 class SignUpSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'username', 'email']
+
+class UpdateUserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['full_name','profile_image','email','bio','resume','skills','work_experience','address','referees']

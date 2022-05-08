@@ -39,16 +39,28 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 
 
 class Profile(models.Model):
+    EXPRIENCE_LEVEL= [
+        ('Less than a year', 'Less than a year'),
+        ('one to three year','1 to 3'),
+        ('three to five years','3 to 5 years'),
+        ('Five years and more','  5+ years'),
+      ]
+    SKILL_TYPE= [
+        ('Cognitive', 'Cognitive Skills'),
+        ('Management','Management Skills'),
+        ('Interpersonal','Interpersonal Skills'),
+        ('Other skills','Other skills'),
+      ]
     id = models.IntegerField(User, primary_key=True)
     full_name = models.CharField(max_length=255)
-    contact = PhoneNumberField(null=False, blank=False, unique=True)
+    contact = models.CharField(max_length=30,  blank=True)
     email = models.CharField(max_length=255)
-    bio = models.CharField(max_length=255)
-    work_experience = models.CharField(max_length=255, blank=True)
-    profile_image = CloudinaryField('image')
+    bio = models.TextField(max_length=255)
+    work_experience = models.TextField(max_length=30, choices=EXPRIENCE_LEVEL)
+    profile_image =models.FileField(blank=True)
     address = models.CharField(max_length=100)
     resume = models.FileField(blank=True)
-    skills = models.CharField(max_length=255, blank=True)
+    skills =  models.CharField(max_length=30, blank=True, choices=SKILL_TYPE )
     referees = models.CharField(max_length=255, blank=True)
 
 

@@ -2,7 +2,7 @@ from rest_framework import generics, status
 from user.api import permissions
 from user.models import Advertisements, Token, Employer, Profile, MpesaPayment
 from rest_framework.response import Response
-from user.api.serializers import UserSerializer, JobseekerSignupSerializer, EmployerSignupSerializer, AdvertisementSerializer
+from user.api.serializers import UserSerializer, JobseekerSignupSerializer, EmployerSignupSerializer, AdvertisementSerializer, UpdateEmployerProfileSerializer, JobseekerViewSerializer, JobSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.views import APIView
 from user.api.permissions import IsJobseekerUser, IsEmployerUser
@@ -21,7 +21,6 @@ from .models import Profile, Post, Comment
 import random
 import json
 from django.contrib.auth import get_user_model
-
 from django.http import HttpResponse  
 from .mpesa_credentials import MpesaAccessToken, LipaNaMpesaPassword
 from .models import MpesaPayment
@@ -46,6 +45,7 @@ from .token import account_activation_token
 from django.contrib.auth.models import User  
 from django.core.mail import EmailMessage  
 from django.contrib.auth import get_user_model
+from rest_framework.decorators import api_view
 User = get_user_model()
 # from user.forms import EmployerInformationForm
 
@@ -62,6 +62,10 @@ class JobViewSet(viewsets.ModelViewSet):
 class SignUpViewSet(viewsets.ModelViewSet):  
       serializer_class = SignUpSerializer
       queryset = User.objects.all()
+
+# class UpdateUserProfileViewSet(viewsets.ModelViewSet):  
+#       serializer_class = UpdateUserProfileSerializer
+#       queryset = Profile.objects.all()
 
 class UpdateUserProfileViewSet(viewsets.ModelViewSet):  
       serializer_class = UpdateUserProfileSerializer
@@ -123,26 +127,6 @@ class JobseekerOnlyView(generics.RetrieveAPIView):
         return self.request.user
 
 
-class EmployerOnlyView(generics.RetrieveAPIView):
-    permission_classes=[permissions.IsEmployerUser]
-    serializer_class = UserSerializer
-
-    def get_object(self):
-        return self.request.user
-
-
-    # def post(request):
-    #     user = request.user
-    #     if request.method == 'POST':
-    #         form = EmployerInformationForm(request.POST, request.FILES)
-    #         form.is_valid()
-    #         update = form.save(commit=False)
-    #         form.employer = user
-    #         update.save()
-    #     return Response ({
-    #         'update': update
-    #     })
-
 
 
 def signup(request):  
@@ -192,9 +176,9 @@ def activate(request, uidb64, token):
 #     return render(request, 'profile')
 @login_required
 def profile(request):
-    
+    queryset = Profile.objects.all()
     if request.method == 'POST':
-        form = UpdateUserProfileForm(request.POST)
+        form = UpdateUserProfileForm(request.POST, instance=User.profile)
         if form.is_valid():
             profile = form.save(commit=False)
             profile.user = request.user
@@ -324,3 +308,50 @@ class AdvertisementsView(APIView):
             return Response(serializers.data)
         else:
             return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class EmployerOnlyView(generics.RetrieveAPIView):
+    permission_classes=[permissions.IsEmployerUser]
+    serializer_class = UserSerializer
+
+    def get_object(self):
+        return self.request.user
+
+@api_view(['POST'])
+def update_company(request):
+    serializer = UpdateEmployerProfileSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+class JobseekersView(generics.ListAPIView):
+    # permission_classes=[permissions.IsEmployerUser]
+    serializer = JobseekerViewSerializer
+    queryset = Jobseeker.objects.all()
+    # def get_querryset(self):
+    #     jobseekers = Jobseeker.objects.all()
+    #     return jobseekers
+
+    def get(self, request, *args, **kwargs):
+        jobseekers = Jobseeker.objects.all()
+        serializer = JobseekerViewSerializer(jobseekers, many=True)
+        return Response (serializer.data)
+
+
+class JobView(APIView):
+    # permission_classes=[permissions.IsEmployerUser]
+    def get_querryset(self):
+        jobs = Job.objects.all()
+        return jobs
+
+    def get(self, request, *args, **kwargs):
+        jobs = Job.objects.all()
+        serializer = JobSerializer(jobs, many=True)
+        return Response (serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        job_data=request.data
+        new_job = Job.objects.create()
+        new_job.save()
+        serializer = JobSerializer(new_job)
+        return Response(serializer.data)

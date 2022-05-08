@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'user',
+    'mpesa_api',
     'phonenumbers',
     'bootstrap4',
     'cloudinary',
@@ -167,3 +168,8 @@ REST_FRAMEWORK = {
 
 AUTH_USER_MODEL = 'user.User'
 ACCOUNT_UNIQUE_EMAIL = True
+
+
+STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

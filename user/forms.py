@@ -32,10 +32,10 @@ class UpdateUserForm(forms.ModelForm):
         fields = ('username', 'email')
 
 
-class UpdateUserProfileForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ['full_name','profile_image','contact','email','bio','resume','skills','work_experience','address','referees']
+# class UpdateUserProfileForm(forms.ModelForm):
+#     class Meta:
+#         model = Profile
+#         fields = ['full_name','profile_image','contact','email','bio','resume','skills','work_experience','address','referees']
         
 class PostForm(forms.ModelForm):
     class Meta:
@@ -78,3 +78,8 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         exclude = ['user']
+
+class UpdateUserProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['full_name','profile_image','email','bio','resume','skills','work_experience','address','referees']

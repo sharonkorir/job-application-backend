@@ -15,6 +15,7 @@ router.register('User', views.SignUpViewSet)
 router.register('UpdateUserProfile', views. UpdateUserProfileViewSet)
 
 
+
 urlpatterns = [
     path('', include(router.urls)),
     path('api/', include(router.urls)),
@@ -25,5 +26,7 @@ urlpatterns = [
     path('profile/', views.Profile, name='UpdateUserProfile'),
     path('activate/(<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/',  
         activate, name='activate'),  
+    path('profile/', views.Profile, name='UpdateUserProfile'),
+    
    
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
