@@ -12,6 +12,6 @@ urlpatterns = [
     path('employer/dashboard/', EmployerOnlyView.as_view(), name="employer_dashboard"),
     path('add/', AdvertisementsView.as_view()),
     path('employer/update/', EmployerOnlyView.as_view(), name='employer_update'),
-    path('view/jobseekers', JobseekersView.as_view()),
-    path('new/jobs',JobView.as_view()),
+    path('view/jobseekers/', JobseekersView.as_view()),
+    path('new/jobs/',JobView.as_view()),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -72,7 +72,7 @@ class JobseekerForm(forms.ModelForm):
 class JobForm(forms.ModelForm):
     class Meta:
         model = Job
-        exclude = ('id', 'Title','Requirements','Location', 'Job Type')
+        fields = ('title', 'location', 'requirements', 'jobtype')
 
 class CommentForm(forms.ModelForm):
     class Meta:
