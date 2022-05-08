@@ -1,6 +1,6 @@
 from rest_framework import generics, status
 from user.api import permissions
-from user.models import Advertisements, Token, Employer
+from user.models import Advertisements, Token, Employer, Profile, MpesaPayment
 from rest_framework.response import Response
 from user.api.serializers import UserSerializer, JobseekerSignupSerializer, EmployerSignupSerializer, AdvertisementSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -192,7 +192,7 @@ def activate(request, uidb64, token):
 #     return render(request, 'profile')
 @login_required
 def profile(request):
-
+    
     if request.method == 'POST':
         form = UpdateUserProfileForm(request.POST)
         if form.is_valid():
